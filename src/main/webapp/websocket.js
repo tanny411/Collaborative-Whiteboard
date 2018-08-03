@@ -5,6 +5,7 @@
  */
 var wsUri = "ws://" + document.location.host + document.location.pathname + "endpoint";
 var websocket = new WebSocket(wsUri);
+websocket.binaryType = "arraybuffer";
 
 websocket.onerror = function(evt) { onError(evt) };
 
@@ -28,12 +29,21 @@ function onOpen() {
 
 websocket.onmessage = function(evt) { onMessage(evt) };
 
-function sendText(json) {
+function sendText(json) {//from click on canvas
     console.log("sending text: " + json);
     websocket.send(json);
 }
                 
 function onMessage(evt) {
     console.log("received: " + evt.data);
-    drawImageText(evt.data);
+    if (typeof evt.data == "string") {
+        drawImageText(evt.data);
+    } else {
+        drawImageBinary(evt.data);
+    }
+}
+
+function sendBinary(bytes) {
+    console.log("sending binary: " + Object.prototype.toString.call(bytes));
+    websocket.send(bytes);
 }
