@@ -1,1 +1,5 @@
+com\mycompany\whiteboard\FigureDecoder.class
 com\mycompany\whiteboard\MyWhiteboard.class
+com\mycompany\whiteboard\Coordinates.class
+com\mycompany\whiteboard\FigureEncoder.class
+com\mycompany\whiteboard\Figure.class
