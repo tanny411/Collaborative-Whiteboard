@@ -30,6 +30,7 @@ function defineImage(evt) {
     var json = JSON.stringify({
         "shape": shape.value,
         "color": color.value,
+        "size":size.value,
         "coords": {
             "x": currentPos.x,
             "y": currentPos.y
@@ -48,12 +49,12 @@ function drawImageText(image) {
     switch (json.shape) {
         case "circle":
             context.beginPath();
-            context.arc(json.coords.x, json.coords.y, 5, 0, 2 * Math.PI, false);
+            context.arc(json.coords.x, json.coords.y, json.size, 0, 2 * Math.PI, false);
             context.fill();
             break;
         case "square":
         default:
-            context.fillRect(json.coords.x, json.coords.y, 10, 10);
+            context.fillRect(json.coords.x, json.coords.y, json.size, json.size);
             break;
     }
 }
