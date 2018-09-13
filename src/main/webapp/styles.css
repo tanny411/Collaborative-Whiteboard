@@ -7,11 +7,6 @@ and open the template in the editor.
     Created on : Sep 8, 2018, 11:32:46 AM
     Author     : aysha
 */
-#myCanvass{
-    border:1px solid #000000;
-    width:150px;
-    height:150px;
-}
 /* Mouse-over effects */
 .slider:hover {
     opacity: 1; /* Fully shown on mouse-over */
@@ -37,10 +32,7 @@ and open the template in the editor.
     background: #4CAF50;
     cursor: pointer;
 }
-.t-slider{
-    display:none;
+#chats, #userList{
+    padding-left:20px;
+    padding-right:20px;
 }
-#t-size{
-    display:visible;
-}
-

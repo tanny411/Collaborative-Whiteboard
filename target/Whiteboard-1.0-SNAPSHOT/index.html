@@ -6,11 +6,23 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <input type="hidden" value="myNameWillBeHere" id="hideIt"/>
          <h1>Collaborative Whiteboard Application</h1>
+         <input type="text" id="name"> <button id="connect">Connect</button>
          <table>
             <tr>
                 <td>
                     <canvas id="myCanvas" width="600" height="400" style="border:1px solid #000000;"></canvas>
+                </td>
+                <td id="userList">
+<!--                    <input type="checkbox" name="vehicle" value="Bike">Bike<br>-->
+                </td>
+                <td>
+                    <h4>Chats</h4>
+                    <ul id="chat">
+                        
+                    </ul>
+                    <input type="text" id="chatText"> <button id="send">Send</button>
                 </td>
             </tr>
             <tr>

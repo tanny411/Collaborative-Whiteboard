@@ -33,11 +33,49 @@ function sendText(json) {//from click on canvas
     console.log("sending text: " + json);
     websocket.send(json);
 }
-                
+
 function onMessage(evt) {
     console.log("received: " + evt.data);
-    if (typeof evt.data == "string") {
-        drawImageText(evt.data);
+    if (typeof evt.data === "string") {
+        if(evt.data[0]=='l'){///listing existing users
+            str=evt.data;
+            temp="";
+            for(i=1;i<str.length;i++){
+                if(str[i]==' '){
+                    temp="<input type=\"checkbox\" name=\"users\" value=\""+temp+"\">"+temp+"<br>";
+                    document.getElementById("userList").insertAdjacentHTML('beforeend', temp);
+                    temp="";
+                }
+                else temp+=str[i];
+            }
+        }
+        else if(evt.data[2]=='n') {///{"name":"aysha"}///listing the newly entered user
+            var json = JSON.parse(evt.data);
+            var str=json.name;
+            str="<input type=\"checkbox\" name=\"users\" value=\""+str+"\">"+str+"<br>";
+            document.getElementById("userList").insertAdjacentHTML('beforeend', str);
+            console.log("Name recieved "+str);
+        }
+        else if(evt.data[2]=='c'){
+            var json = JSON.parse(evt.data);
+            var msg="<strong>"+json.user+" :</strong>"+json.msg+"<br/>";
+            document.getElementById("chat").insertAdjacentHTML('beforeend', msg);
+        }
+        else {
+            var json = JSON.parse(evt.data);
+            var str=json.users;
+            var yes=0;
+            var temp="";
+            var myName=document.getElementById("hideIt").value;
+            for(i=0;i<str.length;i++){
+                if(str[i]==" "){
+                    if(temp==myName){ yes=1; break; }
+                    temp="";
+                }
+                else temp+=str[i];
+            }
+            if(yes==1) drawImageText(evt.data);
+        }
     } else {
         drawImageBinary(evt.data);
     }

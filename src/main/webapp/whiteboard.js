@@ -1,6 +1,33 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 canvas.addEventListener("click", defineImage, false);
+document.getElementById("connect").addEventListener("click",connect, false);
+document.getElementById("send").addEventListener("click",chat, false);
+//var connected=false;
+
+function connect(){
+    console.log("button clicked");
+    var name=document.getElementById("name").value;
+    var json = JSON.stringify({
+        "name":name
+    });
+    sendText(json);
+    document.getElementById("hideIt").value=name;
+    document.getElementById("connect").parentNode.removeChild(document.getElementById("connect"));
+    document.getElementById("name").parentNode.removeChild(document.getElementById("name"));
+}
+
+function chat(){
+    var msg=document.getElementById("chatText").value;
+    document.getElementById("chatText").value="";
+    if(msg.length===0) return;
+    var json = JSON.stringify({
+        "chat":"yes",
+        "user":document.getElementById("hideIt").value,
+        "msg":msg
+    });
+    sendText(json);
+}
 
 function getCurrentPos(evt) {
     var rect = canvas.getBoundingClientRect();
@@ -26,17 +53,27 @@ function defineImage(evt) {
             break;
         }
     }
-
+    var size=document.getElementById("size");
+    
+    var users=document.getElementsByName("users");
+    var userlist="";
+    for(i=0;i<users.length;i++){
+        if(users[i].checked) userlist+=users[i].value+" ";
+    }
+    console.log(userlist);
+    
     var json = JSON.stringify({
+        "users":userlist,
         "shape": shape.value,
         "color": color.value,
-        "size":size.value,
+        "size": size.value,
         "coords": {
             "x": currentPos.x,
             "y": currentPos.y
         }
     });
     drawImageText(json);
+    //if(!connected) return;
     if (document.getElementById("instant").checked) {
         sendText(json);
     }
@@ -66,6 +103,7 @@ function defineImageBinary() {
     for (var i = 0; i < bytes.length; i++) {
         bytes[i] = image.data[i];
     }
+    //if(!connected) return;
     sendBinary(buffer);
 }
 
@@ -85,4 +123,3 @@ function drawImageBinary(blob) {
     img.width = canvas.width;
     img.src = canvas.toDataURL();
 }
-

@@ -5,9 +5,9 @@
  */
 var size = document.getElementById("size");
 var output = document.getElementById("sizeVal");
-output.innerHTML = slider.value; // Display the default slider value
+output.innerHTML = size.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
+size.oninput = function() {
     output.innerHTML = this.value;
 };

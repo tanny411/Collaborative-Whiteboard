@@ -15,7 +15,7 @@ import javax.json.JsonObject;
  */
 public class Figure {
     private JsonObject json;
-
+    
     public Figure(JsonObject json) {
         this.json = json;
     }
